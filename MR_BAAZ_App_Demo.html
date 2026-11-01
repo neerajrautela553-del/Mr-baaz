@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#102b24">
+<title>MR BAAZ — App Demo</title>
+<style>
+:root{--bg:#0b1714;--card:#142720;--green:#b6f36b;--muted:#b7c8bd;--line:#294239;--gold:#ffd166}
+*{box-sizing:border-box}
+body{margin:0;background:linear-gradient(180deg,#102b24,#0b1714 55%);color:#f4fff6;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;min-height:100vh}
+header{padding:22px 18px 16px;position:sticky;top:0;background:#102b24ee;backdrop-filter:blur(10px);border-bottom:1px solid var(--line);z-index:2}
+.brand{display:flex;align-items:center;gap:12px}
+.logo{width:48px;height:48px;border-radius:16px;background:linear-gradient(135deg,var(--green),#4ca56c);display:grid;place-items:center;color:#102b24;font-size:25px;font-weight:900}
+h1{font-size:21px;margin:0;letter-spacing:1px} .sub{font-size:12px;color:var(--muted);margin-top:3px}
+main{max-width:620px;margin:auto;padding:16px 16px 100px}
+.hero{background:linear-gradient(140deg,#254c3b,#142720 75%);border:1px solid #3d6a4e;border-radius:24px;padding:20px;overflow:hidden;position:relative}
+.hero:after{content:"🏔️";font-size:90px;position:absolute;right:8px;top:10px;opacity:.2}
+.pill{display:inline-block;background:#345b43;color:var(--green);padding:6px 10px;border-radius:99px;font-size:11px;font-weight:700}
+.hero h2{font-size:28px;line-height:1.1;margin:14px 0 8px;max-width:280px}
+.hero p{color:#d0e4d5;font-size:14px;max-width:290px;line-height:1.5}
+.btn{border:0;border-radius:13px;background:var(--green);color:#122018;padding:12px 16px;font-weight:800;font-size:14px;cursor:pointer}
+.btn.secondary{background:#233d31;color:#f4fff6;border:1px solid var(--line)}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:14px 0}
+.stat,.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px}
+.label{font-size:12px;color:var(--muted)} .value{font-size:24px;font-weight:850;margin-top:5px}
+.section-title{display:flex;justify-content:space-between;align-items:center;margin:23px 2px 12px}
+.section-title h3{font-size:17px;margin:0}.section-title span{font-size:12px;color:var(--muted)}
+.actions{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.action{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:15px;min-height:128px}
+.emoji{font-size:26px}.action h4{margin:9px 0 5px;font-size:15px}.action p{margin:0;color:var(--muted);font-size:12px;line-height:1.45}
+.play-area{display:none;text-align:center}
+.play-area .target{font-size:76px;display:block;margin:16px auto;cursor:pointer;user-select:none}
+.counter{font-size:34px;font-weight:900;color:var(--green)}
+.notice{margin-top:14px;background:#342d18;border:1px solid #67542a;color:#ffe6a6;border-radius:14px;padding:12px;font-size:12px;line-height:1.5}
+nav{position:fixed;bottom:0;left:0;right:0;background:#0c1d17f2;border-top:1px solid var(--line);display:flex;justify-content:space-around;padding:10px 5px calc(10px + env(safe-area-inset-bottom));z-index:3}
+nav button{background:none;border:0;color:var(--muted);font-size:11px;display:grid;gap:4px;justify-items:center;cursor:pointer}
+nav button b{font-size:21px}nav button.active{color:var(--green)}
+.page{display:none}.page.active{display:block}
+input{width:100%;background:#0d1d17;border:1px solid var(--line);border-radius:12px;padding:13px;color:white;font-size:15px;margin:8px 0 12px}
+.small{font-size:12px;color:var(--muted);line-height:1.5}
+footer{text-align:center;color:#8ca496;font-size:11px;padding:22px 0}
+@media(min-width:500px){main{padding-top:22px}}
+</style>
+</head>
+<body>
+<header><div class="brand"><div class="logo">MB</div><div><h1>MR BAAZ</h1><div class="sub">Pahadi world • App demo</div></div></div></header>
+<main>
+<section id="home" class="page active">
+ <div class="hero">
+  <span class="pill">UTTARAKHAND EDITION</span>
+  <h2>Apna Pahadi World</h2>
+  <p>Apne gaon se shuru kar. Khelo, points jodo aur MR BAAZ ko aage badhao.</p>
+  <button class="btn" onclick="showPage('game')">🎮 Game Khelo</button>
+ </div>
+ <div class="stats">
+  <div class="stat"><div class="label">⭐ Total Points</div><div class="value" id="points">0</div></div>
+  <div class="stat"><div class="label">🔥 Aaj ka score</div><div class="value" id="today">0</div></div>
+ </div>
+ <div class="section-title"><h3>Explore</h3><span>Choose your activity</span></div>
+ <div class="actions">
+  <div class="action" onclick="showPage('game')"><div class="emoji">🎯</div><h4>Tap Challenge</h4><p>Target tap karo aur demo points kamao.</p></div>
+  <div class="action" onclick="showPage('profile')"><div class="emoji">👤</div><h4>Profile</h4><p>Apna player name set karo.</p></div>
+  <div class="action" onclick="showPage('rewards')"><div class="emoji">🎁</div><h4>Rewards</h4><p>Points aur reward system ka demo.</p></div>
+  <div class="action" onclick="showPage('about')"><div class="emoji">🏔️</div><h4>About MR BAAZ</h4><p>Apne app ka agla plan dekho.</p></div>
+ </div>
+ <div class="notice">⚠️ Ye abhi demo app hai. Points sirf game ke points hain—ye asli paise nahi hain aur inhe withdraw nahi kar sakte.</div>
+</section>
+
+<section id="game" class="page">
+ <div class="section-title"><h3>🎯 Tap Challenge</h3><span>Quick game</span></div>
+ <div class="card play-area" style="display:block">
+  <p class="small">Target par 10 baar tap karo. Har tap par 1 demo point milega.</p>
+  <div class="counter"><span id="roundscore">0</span>/10</div>
+  <button class="btn" id="target" onclick="tapTarget()" style="background:transparent;border:0"><span class="target">🏔️</span></button>
+  <p id="gameMessage" class="small">Shuru karne ke liye target tap karo!</p>
+  <button class="btn secondary" onclick="resetGame()">Reset Game</button>
+ </div>
+ <div class="notice">Points app ke andar hi hain. Real-money rewards ke liye secure server, rules, testing aur legal/payment setup chahiye.</div>
+</section>
+
+<section id="rewards" class="page">
+ <div class="section-title"><h3>🎁 Rewards</h3><span>Demo only</span></div>
+ <div class="card"><div class="emoji">⭐</div><h3>Starter Badge</h3><p class="small">10 points jodne par badge unlock hoga.</p><div id="badge" class="pill">LOCKED</div></div>
+ <div class="card" style="margin-top:12px"><h3>💰 Real earning kaise hogi?</h3><p class="small">App popular hone par ads ya premium features se earning ho sakti hai. Pehle users, privacy policy, platform rules aur proper ad setup zaroori hain. Earning guaranteed nahi hoti.</p></div>
+</section>
+
+<section id="profile" class="page">
+ <div class="section-title"><h3>👤 Player Profile</h3></div>
+ <div class="card"><label class="label" for="playerName">Player name</label><input id="playerName" maxlength="20" placeholder="Apna naam likho"><button class="btn" onclick="saveName()">Save Name</button><p id="savedName" class="small">Player: Guest</p></div>
+</section>
+
+<section id="about" class="page">
+ <div class="section-title"><h3>🏔️ About MR BAAZ</h3></div>
+ <div class="card"><p>MR BAAZ ek pahadi-theme app prototype hai. Agle version mein village map, character movement, missions, sound aur better graphics add kiye ja sakte hain.</p><p class="small">Ye file mobile browser mein chalti hai. Ye abhi Play Store APK nahi hai.</p></div>
+ <div class="notice">Agla development step: is prototype ko Android project mein convert karna, phir testing aur publishing.</div>
+</section>
+<footer>MR BAAZ © Demo prototype</footer>
+</main>
+<nav>
+ <button class="active" data-page="home" onclick="showPage('home',this)"><b>⌂</b>Home</button>
+ <button data-page="game" onclick="showPage('game',this)"><b>🎮</b>Game</button>
+ <button data-page="rewards" onclick="showPage('rewards',this)"><b>🎁</b>Rewards</button>
+ <button data-page="profile" onclick="showPage('profile',this)"><b>👤</b>Profile</button>
+</nav>
+<script>
+let points=Number(localStorage.getItem('mrbaaz_points')||0);
+let today=Number(localStorage.getItem('mrbaaz_today')||0);
+let score=0;
+function update(){document.getElementById('points').textContent=points;document.getElementById('today').textContent=today;document.getElementById('roundscore').textContent=score;document.getElementById('badge').textContent=points>=10?'UNLOCKED ✓':'LOCKED';document.getElementById('badge').style.background=points>=10?'#b6f36b':'#345b43';document.getElementById('badge').style.color=points>=10?'#102b24':'#b6f36b';localStorage.setItem('mrbaaz_points',points);localStorage.setItem('mrbaaz_today',today)}
+function showPage(id,btn){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById(id).classList.add('active');document.querySelectorAll('nav button').forEach(b=>b.classList.remove('active'));if(btn)btn.classList.add('active');else{let b=document.querySelector('nav button[data-page="'+id+'"]');if(b)b.classList.add('active')}window.scrollTo(0,0)}
+function tapTarget(){if(score>=10){document.getElementById('gameMessage').textContent='Round complete! Reset karke phir khelo.';return}score++;points++;today++;document.getElementById('gameMessage').textContent=score>=10?'Shabash! Round complete. 🎉':'Nice! Agla tap karo.';update()}
+function resetGame(){score=0;document.getElementById('gameMessage').textContent='Shuru karne ke liye target tap karo!';update()}
+function saveName(){let n=document.getElementById('playerName').value.trim();if(!n){document.getElementById('savedName').textContent='Pehle apna naam likho.';return}localStorage.setItem('mrbaaz_name',n);document.getElementById('savedName').textContent='Player: '+n}
+let oldName=localStorage.getItem('mrbaaz_name');if(oldName){document.getElementById('playerName').value=oldName;document.getElementById('savedName').textContent='Player: '+oldName}
+update();
+</script>
+</body>
+</html>
