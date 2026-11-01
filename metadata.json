@@ -1,0 +1,6 @@
+{
+  "name": "MR BAAZ 3D — Pahadi Open World",
+  "description": "Explore the majestic Uttarakhand Himalayas in 3D: walk, drive 4x4 mountain jeeps, ring temple bells, and complete village quests in this open world.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
